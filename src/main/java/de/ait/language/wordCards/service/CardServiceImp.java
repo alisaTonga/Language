@@ -3,7 +3,7 @@ package de.ait.language.wordCards.service;
 import de.ait.language.wordCards.DTO.RequestCard;
 import de.ait.language.wordCards.DTO.ResponseCard;
 import de.ait.language.wordCards.entity.Card;
-import de.ait.language.wordCards.repository.IRepositoryCard;
+import de.ait.language.wordCards.repository.CardRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 @AllArgsConstructor
 public class CardServiceImp implements CardService{
-    private final IRepositoryCard repository;
+    private final CardRepository repository;
     private final ModelMapper mapper;
 
     @Override
@@ -34,7 +34,7 @@ public class CardServiceImp implements CardService{
 
     @Override
     public List<ResponseCard> getCards
-            (String language, String word, String example, String translateLanguage, String translation, String groups) {
+            (String language, String word, String example, String translateLanguage, String translation) {
         List<Card> cardList = repository.findAll();
 
         Predicate<Card> predicateByLanguage = (language == null || language.isEmpty())
@@ -57,9 +57,9 @@ public class CardServiceImp implements CardService{
                 ? card -> true
                 : card -> card.getTranslation().toLowerCase().contains(translation.toLowerCase());
 
-        Predicate<Card> predicateByGroups = (groups == null || groups.isEmpty())
-                ? card -> true
-                : card -> card.getGroups().toLowerCase().contains(groups.toLowerCase());
+//        Predicate<Card> predicateByGroups = (groups == null || groups.isEmpty())
+//                ? card -> true
+//                : card -> card.getGroups().toLowerCase().contains(groups.toLowerCase());
 
         Predicate<Card> allCondition =
                 predicateByLanguage.and(predicateByWord)
@@ -67,8 +67,8 @@ public class CardServiceImp implements CardService{
                         .and(predicateByWord)
                         .and(predicateByExample)
                         .and(predicateByTranslateLanguage)
-                        .and(predicateByTranslation)
-                        .and(predicateByGroups);
+                        .and(predicateByTranslation);
+//                        .and(predicateByGroups);
 
         List<Card> filteredCard = cardList.stream()
                 .filter(allCondition)

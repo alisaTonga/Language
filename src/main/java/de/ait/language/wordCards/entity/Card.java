@@ -26,6 +26,6 @@ public class Card {
     private String translateLanguage;
     @Column(name = "translation")
     private String translation;
-    @Column(name = "groups")
-    private String groups;
+//    @Column(name = "groups")
+//    private String groups;
 }

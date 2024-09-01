@@ -16,5 +16,5 @@ public class RequestCard {
     private String example;
     private String translateLanguage;
     private String translation;
-    private String groups;
+//    private String groups;
 }

@@ -9,5 +9,6 @@ public interface CardService {
     List<ResponseCard> findAll();
     ResponseCard save(RequestCard card);
     List<ResponseCard> getCards
-            (String language,String word,String example,String translateLanguage,String translation,String groups);
+            (String language,String word,String example,String translateLanguage,String translation);
+
 }

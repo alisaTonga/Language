@@ -12,7 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class CardController {
     private final CardService service;
-
     @PostMapping("/cards")
     public ResponseCard addCard(@RequestBody RequestCard dto){
         return service.save(dto);
@@ -23,9 +22,9 @@ public class CardController {
             @RequestParam (name = "w", required = false, defaultValue = "") String word,
             @RequestParam (name = "e", required = false, defaultValue = "") String example,
             @RequestParam (name = "tl", required = false, defaultValue = "") String translateLanguage,
-            @RequestParam (name = "t", required = false, defaultValue = "") String translation,
-            @RequestParam (name = "g", required = false, defaultValue = "") String groups
+            @RequestParam (name = "t", required = false, defaultValue = "") String translation
+//            @RequestParam (name = "g", required = false, defaultValue = "") String groups
     ){
-    return service.getCards(language,word,example,translateLanguage,translation,groups);
+    return service.getCards(language,word,example,translateLanguage,translation);
     }
 }
